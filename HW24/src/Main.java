@@ -92,3 +92,81 @@ public class Main {
         System.out.println("Добавлено новые данные, имя: " + name + " и номер: " + number + "\n");
     }
 }
+
+/**
+ or
+ import java.util.*;
+
+ public class Main {
+ private static Map<String,String> phoneBook = new HashMap<>();
+ public static void main(String[] args) {
+ while(true){
+ System.out.print("Добрый день, введите имя: ");
+ String nameOrNumber = new Scanner(System.in).nextLine();
+ if (nameOrNumber.equalsIgnoreCase("LIST")) {
+ printAll();
+ } else if(nameOrNumber.matches("[0-9]+")) {
+ addNumberOne(nameOrNumber);
+ } else if (nameOrNumber.equalsIgnoreCase("EXIT")){
+ System.out.println("До свидания!");
+ return;
+ } else {
+ addName(nameOrNumber);
+ }
+ }
+ }
+
+ public static void addName(String name) {
+ name = checkCorrectName(name);
+ System.out.print("Для имени " + name + " введите номер телефона: ");
+ String number = new Scanner(System.in).nextLine();
+ checkCorrectNumber(number);
+ addNewContact(name,number);
+ }
+
+ public static String checkCorrectName(String name){
+ while(!name.matches("[А-я]+") || phoneBook.containsKey(name)) {
+ if(!name.matches("[А-я]+")){
+ System.out.println("Ведённое имя некорректное! Повторите ввод.");
+ } else if (phoneBook.containsKey(name)) {
+ System.out.println("Имя " + name + " уже занято с номером " + phoneBook.get(name));
+ }
+ System.out.print("Введите корректное имя: ");
+ name = new Scanner(System.in).nextLine();
+ }
+ return name;
+ }
+
+ public static void addNumberOne(String number){
+ number = checkCorrectNumber(number);
+ System.out.print("Для номера " + number + " введите имя: ");
+ String name = new Scanner(System.in).nextLine();
+ checkCorrectName(name);
+ addNewContact(name,number);
+ }
+
+ public static String checkCorrectNumber(String number){
+ while (number.length() < 10 || number.length() > 12 || phoneBook.containsValue(number)){
+ if(number.length() < 10 || number.length() > 12) {
+ System.out.println("Номер телефона введён некорретно! Повторите ввод.");
+ } else if(phoneBook.containsValue(number)) {
+ System.out.println("Номер " + number + " уже есть у другого абонента.");
+ }
+ System.out.print("Введите номер корректно: ");
+ number = new Scanner(System.in).nextLine();
+ }
+ return number;
+ }
+
+ public static void addNewContact(String name, String number){
+ System.out.println("Добавлен новый контакт " + name + " " + number);
+ phoneBook.put(name, number);
+ }
+
+ public static void printAll(){
+ for(Map.Entry<String,String> entry : phoneBook.entrySet()){
+ System.out.println("Имя: " + entry.getKey() + ", с номером телефона: " + entry.getValue());
+ }
+ }
+ }
+ */
